@@ -60,6 +60,8 @@ a:hover {
     /* min-width: 280px; */
     /* Centraliza blocos */
     margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Cabeçalho (header) */
