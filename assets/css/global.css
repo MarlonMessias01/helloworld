@@ -30,8 +30,8 @@ body {
 
 /* Fundo da página */
 body {
-    background-color: rgba(255, 166, 0, 0.6);
-    background-image: url('../img/back01.png');
+    background-color: rgba(79, 11, 238, 0.6);
+    background-image: url('../img/teste3.png');
     background-attachment: fixed;
     background-position: center;
     background-repeat: repeat;
@@ -96,7 +96,7 @@ header img {
 }
 
 .header-search {
-    background-color: orange;
+    background-color: rgb(137, 9, 243);
     padding: 1rem;
 }
 
@@ -112,7 +112,7 @@ header img {
 
 /* Menu principal (nav) */
 nav {
-    background-color: orange;
+    background-color: rgb(137, 13, 219);
     border-top: 1px dotted #000;
     border-bottom: 1px dotted #000;
     display: flex;
