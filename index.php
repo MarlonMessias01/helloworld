@@ -41,13 +41,13 @@ SQL;
 //  Executa o SQL e armazena os resultados em $res
 $res = $conn->query($sql);
 
-// Conta os registros
+// Conta os registros e armazena em $total
 $total = $res->num_rows;
 
 // Variável que contém a lista de artigos em HTML
 $articles = "";
 
-// Se não tem artigos, exibe aviso
+// Se não tem artigos, exibe um aviso
 if ($total == 0) :
     $articles = "<p>Não achei nada!</p>";
 else :
@@ -57,7 +57,7 @@ else :
 
         $articles .= <<<HTML
 
-<div onclick="location.href = 'view.php?id={$art['art_id']}'">
+<div class="article" onclick="location.href = 'view.php?id={$art['art_id']}'">
     <img src="{$art['art_thumbnail']}" alt="{$art['art_title']}">
     <div>
         <h4>{$art['art_title']}</h4>
