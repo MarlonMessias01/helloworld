@@ -83,6 +83,14 @@ $article = <<<ART
 
 ART;
 
+// Atualiza as visualizações do artigo
+$sql = <<<SQL
+UPDATE article 
+    SET art_views = art_views + 1 
+WHERE art_id = '{$id}';
+SQL;
+$conn->query($sql);
+
 // Inclui o cabeçalho do documento
 require('_header.php');
 ?>
