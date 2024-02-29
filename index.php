@@ -71,6 +71,32 @@ HTML;
 
 endif;
 
+$sql2 = <<<SQL
+
+SELECT art_id, art_title, art_summary, art_thumbnail, art_views
+FROM article ORDER BY art_views DESC LIMIT 3;
+
+
+SQL;
+
+
+$res2 =$conn->query($sql2);
+
+while ($art = $res2->fetch_assoc()):
+
+$aside .= <<<HTML
+
+<div class="aside" onclick="location.href = 'view.php?id={$art['art_id']}'">
+    <img src="{$art['art_thumbnail']}" alt="{$art['art_title']}">
+    <div>
+        <h4>{$art['art_title']}</h4>
+        <p>{$art['art_summary']}</p>
+    </div>
+</div> 
+
+HTML;
+endwhile;
+
 // debug($articles, true); 
 // exit();
 
@@ -85,6 +111,9 @@ require('_header.php');
 
 </article>
 
-<aside></aside>
+
+<aside>
+<?php echo $aside ?>
+</aside>
 
 <?php require('_footer.php') ?>

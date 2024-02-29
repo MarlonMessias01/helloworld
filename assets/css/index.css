@@ -35,3 +35,17 @@
     }
    
 }
+.aside {
+    background-color: #eee;
+    display:flex;
+    padding: 1rem;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    border-radius: .5rem;
+}
+.aside img {
+    width: 80%;
+    height: 80%;
+    border-radius: .40rem .40rem 0 0;
+}

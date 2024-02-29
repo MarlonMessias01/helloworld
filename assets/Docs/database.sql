@@ -145,7 +145,7 @@ VALUES
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum quia distinctio iusto exercitationem qui accusantium ex ullam, excepturi illo quisquam beatae, nisi ad earum reprehenderit, maiores asperiores fuga nulla accusamus.</p>
         '
     ),(
-        '4', '2',
+        '3', '2',
         'https://picsum.photos/202',
         'Plantinhas na Praia',
         'Cuide bem das plantinhas da praia neste verão.',
