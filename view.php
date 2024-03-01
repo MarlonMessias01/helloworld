@@ -67,6 +67,8 @@ if($res->num_rows == 0) header('Location: 404.php');
 // Obtém o artigo e armazena em $art[]
 $art = $res->fetch_assoc();
 
+
+
 // Altera o título da página
 $page['title'] = $art['art_title'];
 
@@ -75,7 +77,7 @@ $page['title'] = $art['art_title'];
 // Gera a view para o usuário
 $article = <<<ART
 
-<div class="article">
+<div class="aside">
     <h2>{$art['art_title']}</h2>
     <small>Por {$art['emp_name']} em {$art['art_datebr']}.</small>
     <div>{$art['art_content']}</div>
@@ -83,13 +85,27 @@ $article = <<<ART
 
 ART;
 
+$aside = <<<ASD
+
+<div class="article">
+    <img src="{$art['emp_photo']}" alt="{$art['emp_type']}">
+    <h4>{$art['emp_name']}</h4>
+    <small>Idade: {$art['emp_age']}</small>
+    <div>
+    <small>Tipo de usuário: {$art['emp_type']}</small>
+    </div>
+</div>
+
+ASD;
+
 // Atualiza as visualizações do artigo
 $sql = <<<SQL
 UPDATE article 
     SET art_views = art_views + 1 
 WHERE art_id = '{$id}';
 SQL;
-$conn->query($sql);
+
+
 
 // Inclui o cabeçalho do documento
 require('_header.php');
@@ -97,6 +113,10 @@ require('_header.php');
 
 <article><?php echo $article ?></article>
 
-<aside></aside>
+<aside>
+<?php echo $aside ?>
+</aside>
 
 <?php require('_footer.php') ?>
+
+

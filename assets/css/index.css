@@ -5,6 +5,7 @@
     margin-bottom: 1rem;
     cursor: pointer;
     border-radius: .3rem;
+    border-style: double;
 }
 
 .article:hover {
@@ -14,7 +15,7 @@
 .article img {
     width: 100%;
     height: auto;
-    border-radius: .35rem .35rem 0 0;
+    border-radius: .35rem .35rem .20 .20;
 }
 
 .article div {
@@ -35,17 +36,18 @@
     }
    
 }
-.aside {
-    background-color: #eee;
+.aside_viewed {
+    background-color: #e4bb62;
     display:flex;
     padding: 1rem;
     flex-direction: column;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     cursor: pointer;
     border-radius: .5rem;
 }
-.aside img {
-    width: 80%;
-    height: 80%;
-    border-radius: .40rem .40rem 0 0;
+.aside_viewed {
+    display: flex;
+    border-style:solid;
+    color: rgb(238, 225, 212);
+    border-radius: .80rem .80rem .80rem .80rem;
 }

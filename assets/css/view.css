@@ -1,0 +1,6 @@
+.aside{
+    display: flex;
+    border-style:solid;
+    color: rgb(238, 225, 212);
+    border-radius: .80rem .80rem .80rem .80rem;
+}
