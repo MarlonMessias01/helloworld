@@ -87,7 +87,7 @@ ART;
 
 $aside = <<<ASD
 
-<div class="aside">
+<div class="lado">
     <img src="{$art['emp_photo']}" alt="{$art['emp_name']}">
     <h4>{$art['emp_name']}</h4>
     <small>Idade: {$art['emp_age']}</small>

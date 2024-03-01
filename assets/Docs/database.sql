@@ -294,7 +294,7 @@ INSERT INTO comment
     '2', 
     'def456',
     'Esmeraldino', 
-    'https://randomuser.me/api/portraits/lego/7.jpg',
+    'https://randomuser.me/api/portraits/lego/8.jpg',
     'esmeraldo@dino.com',
     'Prefiro os cravos às rosas. Pelo menos eles não tem espinhos.'
 ), (
