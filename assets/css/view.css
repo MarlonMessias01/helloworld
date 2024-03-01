@@ -1,6 +1,13 @@
-.aside{
+.article {
+    background-color: #eee;
     display: flex;
-    border-style:solid;
-    color: rgb(238, 225, 212);
-    border-radius: .80rem .80rem .80rem .80rem;
-}
+    flex-direction: column;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border-radius: .3rem;
+};
+
+.aside{
+    padding-top: 3rem
+
+};

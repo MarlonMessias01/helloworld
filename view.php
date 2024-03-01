@@ -77,7 +77,7 @@ $page['title'] = $art['art_title'];
 // Gera a view para o usuário
 $article = <<<ART
 
-<div class="aside">
+<div class="article">
     <h2>{$art['art_title']}</h2>
     <small>Por {$art['emp_name']} em {$art['art_datebr']}.</small>
     <div>{$art['art_content']}</div>
@@ -87,14 +87,15 @@ ART;
 
 $aside = <<<ASD
 
-<div class="article">
-    <img src="{$art['emp_photo']}" alt="{$art['emp_type']}">
+<div class="aside">
+    <img src="{$art['emp_photo']}" alt="{$art['emp_name']}">
     <h4>{$art['emp_name']}</h4>
     <small>Idade: {$art['emp_age']}</small>
     <div>
     <small>Tipo de usuário: {$art['emp_type']}</small>
     </div>
 </div>
+
 
 ASD;
 
