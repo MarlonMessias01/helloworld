@@ -16,7 +16,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Se o ID for inválido redireciona para a página 404.
 // Referências: https://www.w3schools.com/php/func_network_header.asp
-if($id < 1) header('Location: 404.php');
+if ($id < 1) header('Location: 404.php');
 
 // Obtém o artigo do banco de dados
 $sql = <<<SQL
@@ -38,7 +38,7 @@ SELECT
     
     -- Obtém a idade do employee em anos
     -- Referências: https://www.w3schools.com/sql/func_mysql_timediff.asp
-    TIMESTAMPDIFF(YEAR, emp_birth, CURDATE()) as emp_age 
+    TIMESTAMPDIFF(YEAR, emp_birth, CURDATE()) AS emp_age 
 
 -- Tabela original
 FROM `article`
@@ -62,12 +62,10 @@ SQL;
 $res = $conn->query($sql);
 
 // Se artigo não existe redireciona para a página 404.
-if($res->num_rows == 0) header('Location: 404.php');
+if ($res->num_rows == 0) header('Location: 404.php');
 
 // Obtém o artigo e armazena em $art[]
 $art = $res->fetch_assoc();
-
-
 
 // Altera o título da página
 $page['title'] = $art['art_title'];
@@ -85,28 +83,88 @@ $article = <<<ART
 
 ART;
 
-$aside = <<<ASD
-
-<div class="lado">
-    <img src="{$art['emp_photo']}" alt="{$art['emp_name']}">
-    <h4>{$art['emp_name']}</h4>
-    <small>Idade: {$art['emp_age']}</small>
-    <div>
-    <small>Tipo de usuário: {$art['emp_type']}</small>
-    </div>
-</div>
-
-
-ASD;
-
 // Atualiza as visualizações do artigo
 $sql = <<<SQL
 UPDATE article 
     SET art_views = art_views + 1 
 WHERE art_id = '{$id}';
 SQL;
+$conn->query($sql);
 
+// Seleciona o tipo de colaborador
+switch ($art['emp_type']):
+    case 'admin':
+        $emp_type = 'administrador(a)';
+        break;
+    case 'author':
+        $emp_type = 'autor(a)';
+        break;
+    case 'moderator':
+        $emp_type = 'moderador(a)';
+        break;
+    default:
+        $emp_type = 'indefinido(a)';
+endswitch;
 
+// Monta a view do autor para a <aside>
+$aside_author = <<<HTML
+
+<div class="aside-author">
+    <img src="{$art['emp_photo']}" alt="{$art['emp_name']}">
+    <h4>{$art['emp_name']}</h4>
+    <ul>
+        <li>{$art['emp_age']} anos</li>    
+        <li>Colaborador desde {$art['emp_datebr']} como {$emp_type}.</li>
+    </ul>
+</div>
+
+HTML;
+
+// Obtém outros artigos do autor
+$sql = <<<SQL
+
+-- Seleciona
+SELECT
+	-- os campos necessários
+	art_id, art_thumbnail, art_title
+-- da tabela 'article'    
+FROM `article`
+-- quando
+WHERE 
+	-- o id do author é este
+	art_author = '{$art['emp_id']}'
+    -- não pegar o artigo atual
+    AND art_id != '{$art['art_id']}'
+    -- data atual ou no passado
+    AND art_date <= NOW()
+    -- status online
+    AND art_status = 'on'
+-- ordenados de forma aleatória
+ORDER BY RAND()
+-- limitado ao máximo de 3 registros
+LIMIT 3;
+
+SQL;
+$res = $conn->query($sql);
+
+// Inicializa a view
+$aside_articles = '<div class="aside_article"><h4>+ Artigos</h4>' . "\n";
+
+// Loop
+while ($aart = $res->fetch_assoc()) :
+
+    $aside_articles .= <<<HTML
+<div onclick="/view.php?id={$aart['art_id']}">
+<img src="{$aart['art_thumbnail']}" alt="{$aart['art_title']}">
+<h5>{$aart['art_title']}</h5>
+</div>
+
+HTML;
+
+endwhile;
+
+// Fecha view
+$aside_articles .= '</div>';
 
 // Inclui o cabeçalho do documento
 require('_header.php');
@@ -115,9 +173,10 @@ require('_header.php');
 <article><?php echo $article ?></article>
 
 <aside>
-<?php echo $aside ?>
+    <?php
+    echo $aside_author; // Dados do autor
+    echo $aside_articles; // Artigos do autor
+    ?>
 </aside>
 
 <?php require('_footer.php') ?>
-
-
