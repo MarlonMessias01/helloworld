@@ -85,14 +85,16 @@ ART;
 
 // Atualiza as visualizações do artigo
 $sql = <<<SQL
+
 UPDATE article 
     SET art_views = art_views + 1 
 WHERE art_id = '{$id}';
+
 SQL;
 $conn->query($sql);
 
 // Seleciona o tipo de colaborador
-switch ($art['emp_type']):
+switch ($art['emp_type']) {
     case 'admin':
         $emp_type = 'administrador(a)';
         break;
@@ -104,7 +106,7 @@ switch ($art['emp_type']):
         break;
     default:
         $emp_type = 'indefinido(a)';
-endswitch;
+};
 
 // Monta a view do autor para a <aside>
 $aside_author = <<<HTML
@@ -154,7 +156,7 @@ $aside_articles = '<div class="aside_article"><h4>+ Artigos</h4>' . "\n";
 while ($aart = $res->fetch_assoc()) :
 
     $aside_articles .= <<<HTML
-<div onclick="/view.php?id={$aart['art_id']}">
+<div onclick="location.href='/view.php?id={$aart['art_id']}'">
 <img src="{$aart['art_thumbnail']}" alt="{$aart['art_title']}">
 <h5>{$aart['art_title']}</h5>
 </div>
