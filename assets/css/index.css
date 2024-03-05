@@ -1,27 +1,25 @@
-.article {
+.article, .viewed > div {
     background-color: #eee;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
     cursor: pointer;
     border-radius: .3rem;
-    border-style: double;
 }
 
-.article:hover {
+.article:hover, .viewed > div:hover {
     background-color: #ddd;
 }
 
-.article img {
+.article img, .viewed img {
     width: 100%;
     height: auto;
-    border-radius: .35rem .35rem .20 .20;
+    border-radius: .35rem .35rem 0 0;
 }
 
-.article div {
+.article div, .viewed>div>div {
     padding: 0 1rem;
 }
-
 
 @media screen and (min-width: 768px) {
 
@@ -35,19 +33,4 @@
         border-radius: .35rem 0 0 .35rem;
     }
    
-}
-.aside_viewed {
-    background-color: #e4bb62;
-    display:flex;
-    padding: 1rem;
-    flex-direction: column;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    border-radius: .5rem;
-}
-.aside_viewed {
-    display: flex;
-    border-style:solid;
-    color: rgb(238, 225, 212);
-    border-radius: .80rem .80rem .80rem .80rem;
 }
