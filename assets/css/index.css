@@ -14,7 +14,7 @@
 .article img, .viewed img {
     width: 100%;
     height: auto;
-    border-radius: .35rem .35rem 0 0;
+    border-radius: .35rem .35rem .35rem .35rem;
 }
 
 .article div, .viewed>div>div {

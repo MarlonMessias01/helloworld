@@ -113,8 +113,10 @@ while ($mv = $res->fetch_assoc()) :
 
 <div onclick="location.href = 'view.php?id={$mv['art_id']}'">
     <img src="{$mv['art_thumbnail']}" alt="{$mv['art_title']}">
+    <div>
     <h4>{$mv['art_title']}</h4>
     <p title="{$mv['art_summary']}">{$art_summary}</p>
+    </div>
 </div>
 
 HTML;
@@ -132,7 +134,6 @@ require('_header.php');
     <?php echo $articles ?>
 
 </article>
-
 
 <aside>
     <h3>Artigos + vistos</h3>
