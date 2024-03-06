@@ -187,9 +187,13 @@ footer>div>a {
 }
 
 /* Classes de uso geral */
-.red {}
+.red {
+    color: red;
+}
 
-.center {}
+.center {
+    text-align: center;
+}
 
 /* Elementos de formulários */
 input,
