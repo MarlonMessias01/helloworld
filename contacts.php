@@ -3,6 +3,13 @@
 // Carrega configurações globais
 require("_global.php");
 
+// Teste para evitar reenvio do formulário
+header("Expires: 0");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 /**
  * A super global $_POST[] recebe os dados de um formulário submetido pelo método POST.
  **/
@@ -120,10 +127,12 @@ SQL;
         // Monta feedback de erro para o remetente
         $error = <<<HTML
         
+        <span id="closeme" onclick="closeMe()"><i class="fa-solid fa-xmark fa-fw"></i></span>
         <h4>Ooooops!</h4>
         <p>Ocorreram erros no preenchimento do formulário.
         <ul>{$error}</ul>
-        <p>Por favor, revise o preenchimento e envie novamente.</p>
+        <p>Por favor, revise o preenchimento e envie novamente.</p>                
+        <script>setTimeout(closeMe(), 5000);</script>
 
 HTML;
 
@@ -160,10 +169,10 @@ require('_header.php');
 
         // Se ocorreram erros, exibe a caixa de mensagem
         if ($error != '')
-            echo '<div class="error">' . $error . '</div>';
+            echo '<div id="error">' . $error . '</div>';
     ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+        <form class="contact" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
 
             <?php // Campo oculto para detectar se o formulário foi enviado 
             ?>
@@ -174,22 +183,22 @@ require('_header.php');
 
             <p>
                 <label for="name">Nome:</label>
-                <input type="text" name="name" id="name" placeholder="Seu nome completo." value="<?php echo $form['name'] ?>">
+                <input type="text" name="name" id="name" placeholder="Seu nome completo." value="<?php echo $form['name'] ?>" required minlength="3">
             </p>
 
             <p>
                 <label for="email">E-mail:</label>
-                <input type="text" name="email" id="email" placeholder="usuario@provedor.com" value="<?php echo $form['email'] ?>">
+                <input type="email" name="email" id="email" placeholder="usuario@provedor.com" value="<?php echo $form['email'] ?>">
             </p>
 
             <p>
                 <label for="subject">Assunto:</label>
-                <input type="text" name="subject" id="subject" placeholder="Sobre o que deseja escrever" value="<?php echo $form['subject'] ?>">
+                <input type="text" name="subject" id="subject" placeholder="Sobre o que deseja escrever" value="<?php echo $form['subject'] ?>" required minlength="4">
             </p>
 
             <p>
                 <label for="message">Mensagem:</label>
-                <textarea name="message" id="message" placeholder="Escreva sua mensagem aqui"><?php echo $form['message'] ?></textarea>
+                <textarea name="message" id="message" placeholder="Escreva sua mensagem aqui" required minlength="5"><?php echo $form['message'] ?></textarea>
             </p>
 
             <p>

@@ -1,0 +1,21 @@
+/* Formata mensagem de erro do back-end */
+#error {
+    background-color: rgb(255, 198, 198);
+    display: table;
+    margin: auto;
+    padding: 1rem;
+    border: 1px dotted red;
+    border-radius: .3rem;
+    color: rgb(87, 0, 0);
+}
+
+#error h4, #error p:last-child {
+    margin: 0;
+}
+
+#closeme {
+    float: right;
+    margin: -0.5rem -0.5rem 0 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
