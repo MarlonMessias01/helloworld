@@ -3,13 +3,6 @@
 // Carrega configurações globais
 require("_global.php");
 
-// Teste para evitar reenvio do formulário
-header("Expires: 0");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
 /**
  * A super global $_POST[] recebe os dados de um formulário submetido pelo método POST.
  **/
@@ -28,10 +21,10 @@ $page = array(
 
 // Values dos campos do formulário
 $form = [
-    'name' => 'Joca da Silva e Souza',
-    'email' => 'joca@silva.com',
-    'subject' => 'Assunto de teste',
-    'message' => 'Mensagem de teste.'
+    'name' => '',
+    'email' => '',
+    'subject' => '',
+    'message' => ''
 ];
 
 // Mensagens de erro
@@ -87,9 +80,6 @@ if (isset($_POST['send'])) :
     //  Se NÃO ocorreram erros no preenchimento do formulário
     if ($error == '') :
 
-
-
-
         // Grava contato no banco de dados
         $sql = <<<SQL
 
@@ -119,7 +109,7 @@ SQL;
         $stmt->execute();
 
         // Confirma para o remetente que formulário foi enviado 
-        $sended = true;
+        header("Location: contactok.php?name={$form['name']}");
 
     // Se ocorreram erros no preenchimento do formulário
     else :
@@ -127,12 +117,11 @@ SQL;
         // Monta feedback de erro para o remetente
         $error = <<<HTML
         
-        <span id="closeme" onclick="closeMe()"><i class="fa-solid fa-xmark fa-fw"></i></span>
+        <span id="closeme"><i class="fa-solid fa-xmark fa-fw"></i></span>
         <h4>Ooooops!</h4>
         <p>Ocorreram erros no preenchimento do formulário.
         <ul>{$error}</ul>
         <p>Por favor, revise o preenchimento e envie novamente.</p>                
-        <script>setTimeout(closeMe(), 5000);</script>
 
 HTML;
 
@@ -149,30 +138,12 @@ require('_header.php');
     <h2>Faça Contato</h2>
 
     <?php
-    // Se o formulário fou submetido, exibe um feedback para o remetente
-    if ($sended) :
-        // Extrai somente o primeiro nome do remetente
-        $allnames = explode(" ", $_POST['name']);
-        $firstname = $allnames[0];
-    ?>
-
-        <h3>Olá <?php echo $firstname ?>!</h3>
-        <p>Seu contato foi enviado com sucesso.</p>
-        <p><em>Obrigado...</em></p>
-        <p class="center">
-            <button onclick="location.href='contacts.php'" type="button">Enviar outro contato</button>
-        </p>
-
-    <?php
-    // Se o formulário NÃO foi submetido, exibe ele novamente
-    else :
-
         // Se ocorreram erros, exibe a caixa de mensagem
         if ($error != '')
             echo '<div id="error">' . $error . '</div>';
     ?>
 
-        <form class="contact" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+        <form id="contact" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
 
             <?php // Campo oculto para detectar se o formulário foi enviado 
             ?>
@@ -188,7 +159,7 @@ require('_header.php');
 
             <p>
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" placeholder="usuario@provedor.com" value="<?php echo $form['email'] ?>">
+                <input type="email" name="email" id="email" placeholder="usuario@provedor.com" value="<?php echo $form['email'] ?>" required>
             </p>
 
             <p>
@@ -207,11 +178,12 @@ require('_header.php');
 
         </form>
 
-    <?php endif ?>
-
 </article>
 
-<aside></aside>
+<aside>
+    <h3>+ Contatos</h3>
+    <p>Você também pode entrar em contato ou saber mais pelas nossas redes sociais:</p>
+</aside>
 
 <?php
 // Inclui o rodapé do documento
