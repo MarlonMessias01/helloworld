@@ -24,11 +24,11 @@ const userLabel = document.getElementById('userLabel');
 // Monitora se houve mudanças na autenticação do usuário
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        // Se alguém se logou, faça isso...
+        // Se alguém se logou, faça isso:
         // Chama a função que trata o usuário logado
         isLogged(user);
     } else {
-        // Se alguém deslogou, faça isso...
+        // Se alguém deslogou, faça isso:
         // Chama a função que trata o usuário NÃO logado
         notLogged();
     }
@@ -37,12 +37,12 @@ firebase.auth().onAuthStateChanged((user) => {
 // Função que trata o usuário logado
 function isLogged(user) {
     // Altera href do link
-    userAccess.href = `profile.php`;
+    userAccess.href = `profile.php?ref=${location.href}`;
     // Altera title do link
     userAccess.title = `Ver perfil de ${user.displayName}`;
     // Oculta o ícone de login
     userIcon.style.display = 'none';
-    // Cria os atributos da imagem conforme dados do usuário
+    // Define os atributos da imagem conforme dados do usuário
     userImg.src = user.photoURL;
     userImg.alt = user.displayName;
     // Mostrar a imagem do usuário
@@ -63,4 +63,17 @@ function notLogged() {
     userIcon.style.display = 'inline';
     // Altera a label para entrar
     userLabel.innerHTML = 'Entrar';
+}
+
+// Função que converte datas do Firebase (timestamp) para pt-BR
+function convertTimestampToDateFormat(timestamp) {
+    const date = new Date(timestamp);
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const hour = date.getHours().toString().padStart(2, '0');
+    const min = date.getMinutes().toString().padStart(2, '0');
+
+    return `${day}/${month}/${year} às ${hour}:${min}`;
 }
