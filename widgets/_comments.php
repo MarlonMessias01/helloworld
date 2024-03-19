@@ -1,7 +1,7 @@
 <?php
 
 // Verifica se um novo comentário foi enviado
-if(isset($_POST['txt_comment'])):
+if (isset($_POST['txt_comment'])) :
 
     // Dados do formulário
     // Referências: https://www.php.net/manual/en/function.strip-tags.php
@@ -14,6 +14,44 @@ if(isset($_POST['txt_comment'])):
         'social_email' => trim(filter_input(INPUT_POST, 'social_email', FILTER_SANITIZE_EMAIL)),
         'txt_comment' => trim(strip_tags($_POST['txt_comment']))
     ];
+
+    // Se os dados necessários foram preenchidos:
+    if (!in_array("", $cmtform)) :
+
+        // SQL para insersão do comentário
+        $sql = <<<SQL
+
+INSERT INTO comment (
+    cmt_article,
+    cmt_social_id,
+    cmt_social_name,
+    cmt_social_photo,
+    cmt_social_email,
+    cmt_content
+) VALUES (
+    ?,?,?,?,?,?
+)
+
+SQL;
+
+        // Prepara o comando SQL para o banco de dados
+        $stmt = $conn->prepare($sql);
+
+        // Envia os dados para o banco
+        $stmt->bind_param(
+            "isssss", // Substitui os "?" do SQL por strings
+            $cmtform['article_id'],
+            $cmtform['social_id'],
+            $cmtform['social_name'],
+            $cmtform['social_photo'],
+            $cmtform['social_email'],
+            $cmtform['txt_comment']
+        );
+
+        // Avisa ao banco de dados para executar a query
+        $stmt->execute();
+
+    endif;
 
 endif;
 
