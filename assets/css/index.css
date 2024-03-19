@@ -1,25 +1,28 @@
-.article, .viewed > div {
-    background-color: #d1d1d1;
+.article {
+    background-color: #eee;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
     cursor: pointer;
     border-radius: .3rem;
-    border-style: double;
 }
 
-.article:hover, .viewed > div:hover {
-    background-color: #7a7a7a;
+.article:hover {
+    background-color: #ddd;
 }
 
-.article img, .viewed img {
+.article img {
     width: 100%;
     height: auto;
-    border-radius: .35rem .35rem .35rem .35rem;
+    border-radius: .35rem .35rem 0 0;
 }
 
-.article div, .viewed>div>div {
+.article div {
     padding: 0 1rem;
+}
+
+.viewed h5 {
+    margin: .5rem 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -33,5 +36,30 @@
         height: auto;
         border-radius: .35rem 0 0 .35rem;
     }
-   
+
+}
+
+.viewed div {
+    padding: .5rem;
+    background-color: white;
+    margin-bottom: 1rem;
+    border-radius: .35rem;
+    cursor: pointer;
+}
+
+.viewed div:hover {
+    background-color: #eee;
+} 
+
+.viewed h5 {
+    margin: 0;
+}
+
+.viewed p {
+    margin: .25rem 0 0 0;
+}
+
+.viewed img{
+    display: flex;
+    width: 10rem;
 }
