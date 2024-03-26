@@ -141,4 +141,40 @@ function debug($target, $exit = false)
     // var_dump($target);   // Exibe um debug mais completo
     echo "</pre>";
     if ($exit) exit();
-};
+}
+
+/**
+ * Função que exibe um artigo pelo id na forma de card ou banner.
+ **/
+function view_article($article_id)
+{
+
+    // Obtém a variável $conn
+    global $conn;
+
+    // Obtém o artigo do banco de dados conforme o ID
+    $sql = <<<SQL
+
+SELECT 
+	art_id, art_thumbnail, art_title, art_summary
+FROM article
+WHERE 
+    art_id = '{$article_id}';
+
+SQL;
+
+    $res = $conn->query($sql);
+    $art = $res->fetch_assoc();
+
+    return <<<HTML
+
+        <div class="article" onclick="location.href = 'view.php?id={$art['art_id']}'">
+        <img src="{$art['art_thumbnail']}" alt="{$art['art_title']}">
+        <div>
+            <h4>{$art['art_title']}</h4>
+            <p>{$art['art_summary']}</p>
+        </div>
+        </div>
+
+    HTML;
+}
